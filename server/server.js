@@ -11,9 +11,10 @@ const userRoutes = require('./routes/user')
 const partyRoutes = require('./routes/party')
 
 // connect to mongo
-mongoose.connect(
-	'mongodb+srv://connerpmcguire:nx5a%40ab%26Jdsi1JkYcc@dnd-cluster.ocozplc.mongodb.net/dnd-database?retryWrites=true&w=majority'
-)
+mongoose
+	.connect
+	// mongoose connect code
+	()
 
 // middleware
 app.use(express.json()) // allows the use of req.body inside routes to POST or PATCH
