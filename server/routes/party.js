@@ -1,30 +1,30 @@
 const express = require('express')
+const {
+	handleGetAllParties,
+	handleGetParty,
+	handleCreateParty,
+	handleDeleteParty,
+	handleUpdateParty,
+} = require('../../controllers/partyController')
 
 const router = express.Router()
 
 // GET all parties
-router.get('/', (req, res) => {
-	res.json({ msg: 'GET all parties' })
-})
+router.get('/', handleGetAllParties)
 
 // GET one party
-router.get('/:id', (req, res) => {
-	res.json({ msg: 'GET one party' })
-})
+router.get('/:id', handleGetParty)
 
 // POST a new party
-router.post('/', (req, res) => {
-	res.json({ msg: 'POST a new party' })
-})
+router.post('/', handleCreateParty)
 
-// DELETE a user
-router.delete('/:id', (req, res) => {
-	res.json({ msg: 'DELETE a party' })
-})
+// DELETE a party
+router.delete('/:id', handleDeleteParty)
 
-// UPDATE a user
-router.patch('/id:', (req, res) => {
-	res.json({ msg: 'UPDATE a party' })
-})
+// UPDATE a party
+router.patch('/:id', handleUpdateParty)
+
+// Join a party
+// router.patch('/:uid/:pid', handleJoinParty)
 
 module.exports = router
