@@ -1,4 +1,3 @@
-// all requires
 require('dotenv').config()
 
 const express = require('express')
@@ -9,8 +8,10 @@ const mongoose = require('mongoose')
 const app = express()
 app.use(cors())
 app.use(express.json())
-const userRoutes = require('./routes/user')
-const partyRoutes = require('./routes/party')
+const cardRoutes = require('./routes/cards')
+const creatureRoutes = require('./routes/creatures')
+const partyRoutes = require('./routes/parties')
+const userRoutes = require('./routes/users')
 
 // connect to mongo
 mongoose
@@ -34,5 +35,7 @@ app.use((req, res, next) => {
 })
 
 // api routes
-app.use('/api/user', userRoutes)
+app.use('/api/card/', cardRoutes)
+app.use('/api/creature/', creatureRoutes)
 app.use('/api/party/', partyRoutes)
+app.use('/api/user', userRoutes)

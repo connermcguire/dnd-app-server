@@ -10,7 +10,7 @@ const PartySchema = new Schema(
 			required: true,
 		},
 		bio: String,
-		members: [Schema.ObjectId],
+		members: Array,
 	},
 	{ timestamps: true }
 )

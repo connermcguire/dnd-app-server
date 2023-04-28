@@ -2,7 +2,8 @@ const express = require('express')
 const {
 	handleGetAllUsers,
 	handleGetUser,
-	handleCreateUser,
+	signUpUser,
+	logInUser,
 	handleDeleteUser,
 	handleUpdateUser,
 } = require('../../controllers/userController')
@@ -15,8 +16,11 @@ router.get('/', handleGetAllUsers)
 // GET one user
 router.get('/:id', handleGetUser)
 
-// POST a new user
-router.post('/', handleCreateUser)
+// POST a new user || Sign Up
+router.post('/signup', signUpUser)
+
+// POST a user || Log In
+router.post('/login', logInUser)
 
 // DELETE a user
 router.delete('/:id', handleDeleteUser)
