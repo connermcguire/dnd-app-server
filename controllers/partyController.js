@@ -5,6 +5,9 @@ const mongoose = require('mongoose')
 const handleGetAllParties = async (req, res) => {
 	const parties = await PartySchema.find({}).sort({ createdAt: -1 })
 
+	if (!parties) {
+		return res.status(404).json({ error: 'Server error' })
+	}
 	res.status(200).json(parties)
 }
 
@@ -29,7 +32,7 @@ const handleGetParty = async (req, res) => {
 const handleCreateParty = async (req, res) => {
 	const { partyName, password, bio, members } = req.body
 
-	// add doc to db. What does doc mean, document?
+	// add doc to db
 	try {
 		const party = await PartySchema.create({
 			partyName,
