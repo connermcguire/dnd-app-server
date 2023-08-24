@@ -6,6 +6,10 @@ const CardSchema = new Schema(
 	{
 		cardName: String,
 		cardText: String,
+		parentId: {
+			required: true,
+			type: Schema.Types.ObjectId,
+		},
 	},
 	{ timestamps: true }
 )

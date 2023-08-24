@@ -6,8 +6,12 @@ const {
 	handleDeleteCard,
 	handleUpdateCard,
 } = require('../../controllers/cardController')
+const requireAuth = require('../../middleware/requireAuth')
 
 const router = express.Router()
+
+// require auth for all routes
+router.use(requireAuth)
 
 // Get all cards
 router.get('/', handleGetAllCards)

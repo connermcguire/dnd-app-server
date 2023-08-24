@@ -2,8 +2,10 @@ const UserSchema = require('../models/UserModel')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 
-const createToken = (id) => {
-	return jwt.sign({ id }, process.env.SECRET, { expiresIn: '3d' })
+const createToken = (_id, email, cards) => {
+	return jwt.sign({ _id, email, cards }, process.env.SECRET, {
+		expiresIn: '3d',
+	})
 }
 
 // get all users
@@ -35,7 +37,8 @@ const handleGetUser = async (req, res) => {
 
 // create new user
 const signUpUser = async (req, res) => {
-	const { username, password, email, bio, characterName, parties } = req.body
+	const { username, password, email, bio, characterName, cards, parties } =
+		req.body
 
 	// add doc to db
 	try {
@@ -45,13 +48,14 @@ const signUpUser = async (req, res) => {
 			email,
 			bio,
 			characterName,
+			cards,
 			parties
 		)
 
 		// create token
-		const token = createToken(user.id)
+		const token = createToken()
 
-		res.status(200).json({ email, token })
+		res.status(200).json({ email, _id, cards, token })
 	} catch (error) {
 		res.status(400).json({ error: error.message })
 	}
@@ -62,11 +66,13 @@ const logInUser = async (req, res) => {
 	const { email, password } = req.body
 	try {
 		const user = await UserSchema.logIn(email, password)
+		const _id = user.id
+		const cards = user.cards
 
 		// create a token
-		const token = createToken(user.id)
+		const token = createToken(user.id, user.cards)
 
-		res.status(200).json({ email, token })
+		res.status(200).json({ _id, cards, email, token })
 	} catch (error) {
 		res.status(400).json({ error: error.message })
 	}
@@ -97,7 +103,7 @@ const handleUpdateUser = async (req, res) => {
 		return res.status(404).json({ error: 'Invalid User ID' })
 	}
 
-	const user = await UserModel.findOneAndUpdate({ _id: id }, { ...req.body })
+	const user = await UserSchema.findOneAndUpdate({ _id: id }, { ...req.body })
 
 	if (!user) {
 		return res.status(400).json({ error: 'User not found' })

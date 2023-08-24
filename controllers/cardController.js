@@ -30,13 +30,14 @@ const handleGetCard = async (req, res) => {
 
 // create new card
 const handleCreateCard = async (req, res) => {
-	const { cardName, cardText } = req.body
+	const { cardName, cardText, parentId } = req.body
 
 	// add doc to db
 	try {
 		const card = await CardSchema.create({
 			cardName,
 			cardText,
+			parentId,
 		})
 		res.status(200).json(card)
 	} catch (error) {

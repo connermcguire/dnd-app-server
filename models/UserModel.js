@@ -19,6 +19,10 @@ const UserSchema = new Schema(
 			required: true,
 			unique: true,
 		},
+		cards: {
+			require: true,
+			type: Array,
+		},
 		bio: String,
 		characterName: String,
 		parties: Array,
@@ -33,6 +37,7 @@ UserSchema.statics.signUp = async function (
 	email,
 	bio,
 	characterName,
+	cards,
 	parties
 ) {
 	// Validation
@@ -65,6 +70,7 @@ UserSchema.statics.signUp = async function (
 		email,
 		bio,
 		characterName,
+		cards,
 		parties,
 	})
 
